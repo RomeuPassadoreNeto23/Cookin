@@ -1,14 +1,14 @@
 <script lang="ts">
-import IngredientesSelecionavel from './IngredientesSelecionavel.vue';
+import type { PropType } from 'vue';
 import Tag from './Tag.vue';
 
 export default {
-    data() {
-        return {
-            ingredientes: ['Alho', 'Manteiga', 'Orégano']
-        };
-    },
-    components: {  Tag }
+    components:{Tag},
+    props: {
+        ingredientes: { type: Array as PropType<string[]>, required: true }
+    }
+
+
 }
 </script>
 <template>
@@ -18,10 +18,8 @@ export default {
         </span>
         <ul v-if="ingredientes.length" class="ingredientes-sua-lista">
             <li v-for="ingrediente in ingredientes" :key="ingrediente">
-               <Tag  :texto="ingrediente" ativa/>
-            
+                <Tag :texto="ingrediente" ativa />
             </li>
-
         </ul>
         <p v-else class="paragrafo lista-vazia">
             <img src="../assets/icones/lista-vazia.svg" alt="icone de pesquisa">

@@ -28,7 +28,9 @@ export default {
         </p>
         <ul class="categorias">
             <li v-for="categoria in categorias" :key="categoria.nome">
-                <CardCategoria  :categoria="categoria"/>
+                <CardCategoria 
+                :categoria="categoria"
+                @adicionar-ingrediente="$emit('adicionarIngrediente', $event)" />
 
             </li>
 
