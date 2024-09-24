@@ -19,9 +19,9 @@ export default {
             this.ingredientes.push(incrediente)
 
         },
-        removerIgrediente(incrediente: number) {
+        removerIgrediente(incrediente:string) {
             console.log("ingrediente", incrediente)
-            this.ingredientes.splice(incrediente, 1)
+            this.ingredientes = this.ingredientes.filter(ingredientes => incrediente != ingredientes)
 
 
         }
@@ -39,7 +39,7 @@ export default {
             @remover-ingrediente="removerIgrediente" />
         <BuscarReceitas />  
     </main>
-    <Rodape />
+   
 </template>
 <style scoped>
 .conteudo-principal {
@@ -47,7 +47,6 @@ export default {
     border-radius: 3.75rem 3.75rem 0rem 0rem;
     background: var(--creme, #FFFAF3);
     color: var(--cinza, #444);
-
     display: flex;
     flex-direction: column;
     align-items: center;

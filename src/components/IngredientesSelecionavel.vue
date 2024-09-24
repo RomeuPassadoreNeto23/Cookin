@@ -13,20 +13,22 @@ export default {
         }
 
     },
+    emits: ['adicionarIngrediente', 'removerIngrediente']
+    ,
     methods: {
         aoClicar() {
             this.selecionado = !this.selecionado
             if (this.selecionado) {
                 this.$emit('adicionarIngrediente', this.ingredientes);
-            }else{
-                this.$emit('removerIngrediente', this.ingredientes.indexOf.toString);
-                    console.log('primeiro',this.ingredientes.indexOf.toString)
+            } else {
+                this.$emit('removerIngrediente', this.ingredientes);
+
             }
 
 
         }
     },
-    emits: ['adicionarIngrediente','removerIngrediente']
+    
 }
 
 </script>
