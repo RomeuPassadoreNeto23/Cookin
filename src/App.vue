@@ -10,8 +10,6 @@ export default {
   <Banner />
   <ConteudoPrincipal />
   <Rodape />
-
-  
   
 </template>
 <style scoped>

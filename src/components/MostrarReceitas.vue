@@ -19,8 +19,5 @@ export default {
 
 </script>
 <template>
-    <main class="conteudo-receita">
-
-    </main>
+ Mostrar Receita 
 </template>
-

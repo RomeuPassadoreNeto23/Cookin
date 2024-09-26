@@ -1,14 +1,17 @@
 <script lang="ts">
 export default {
+    props: {
+        texto: { type: String, required: true }
+
+    },
 
 }
 </script>
 <template>
-    <button class="buscar-receita">Buscar receitas!</button>
-
+    <button class="botao">{{ texto }}</button>
 </template>
 <style scoped>
-.buscar-receita {
+.botao {
 
     width: 312px;
     height: 56px;
@@ -20,8 +23,12 @@ export default {
     font-weight: 700;
     font-size: 22px;
     box-shadow: 4px 4px 15px 0px #FF734C40;
-    font-family: "Nunito Sans", sans-serif;
 
 
+
+}
+
+.botao:hover {
+    filter: brightness(90%);
 }
 </style>

@@ -3,30 +3,37 @@
 import SelecionarIngredientes from './SelecionarIngredientes.vue';
 import SuaLista from './SuaLista.vue';
 import Tag from './Tag.vue';
-import BuscarReceitas  from './BuscarReceitas.vue';
-import Rodape from './Rodape.vue';
+import MostrarRrceitas from './MostrarReceitas.vue'
+
+
+type Pagina = 'SelecionarIngredientes' | 'MostrarReceitas';
 
 export default {
     data() {
         return {
-            ingredientes: [] as string[]
+            ingredientes: [] as string[],
+            conteudo: 'SelecionarIngredientes' as Pagina
 
         };
     },
-    components: { SelecionarIngredientes, Tag, SuaLista,BuscarReceitas,Rodape },
+    components: { SelecionarIngredientes, Tag, SuaLista, MostrarRrceitas },
     methods: {
         adicionarIngrediente(incrediente: string) {
             this.ingredientes.push(incrediente)
 
         },
-        removerIgrediente(incrediente:string) {
+        removerIgrediente(incrediente: string) {
             console.log("ingrediente", incrediente)
             this.ingredientes = this.ingredientes.filter(ingredientes => incrediente != ingredientes)
 
 
+        },
+        nevegar(pagina: Pagina) {
+            this.conteudo = pagina
         }
 
-    }
+    },
+    emits: ['removerIgrediente', 'adicionarIngrediente', 'buscarReceitas']
 
 }
 
@@ -35,11 +42,14 @@ export default {
 
     <main class="conteudo-principal">
         <SuaLista :ingredientes="ingredientes" />
-        <SelecionarIngredientes @adicionar-ingrediente="adicionarIngrediente"
-            @remover-ingrediente="removerIgrediente" />
-        <BuscarReceitas />  
+        <SelecionarIngredientes v-if="conteudo === 'SelecionarIngredientes'"
+            @adicionar-ingrediente="adicionarIngrediente"
+            @remover-ingrediente="removerIgrediente"
+            @buscar-receitas="nevegar('MostrarReceitas')" />
+        <MostrarRrceitas v-else=" conteudo ===  'MostrarReceitas'" />
+
     </main>
-   
+
 </template>
 <style scoped>
 .conteudo-principal {
