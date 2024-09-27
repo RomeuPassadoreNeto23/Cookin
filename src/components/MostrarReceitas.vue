@@ -1,37 +1,66 @@
 <script lang="ts">
 import { obterReceitas } from '@/http';
+import type { PropType } from 'vue';
 import type IReceiras from '@/interfaces/IReceitas';
 import CardReceita from './CardReceita.vue';
+import BotaoPrincipal from './BotaoPrincipal.vue';
+import { itensDeLista1EstaoEmLista2 } from '@/operacoes/listas';
+import { uptime } from 'process';
 export default {
+    props: {
+        ingrediente: { type: Array as PropType<string[]>, required: true }
+    },
     data() {
 
         return {
-            receitas: [] as IReceiras[]
+
+            receitasEncontradas:[] as IReceiras[]
+
         }
 
 
     },
-    async created() {
-        this.receitas = await obterReceitas();
+     async created() {
+      const  receitas = await obterReceitas();
+        this.receitasEncontradas = receitas.filter((receita) => {
+            console.log("ingredientes",this.ingrediente)
+            const possoFazerReceita = itensDeLista1EstaoEmLista2(receita.ingredientes, this.ingrediente);
+
+            return possoFazerReceita;
+        });
+
 
     },
-    components: { CardReceita }
+    components: { CardReceita, BotaoPrincipal },
+    emits: ['editarReceita']
 }
 
 
 </script>
 <template>
+ 
     <section class="mostrar-receita">
+       
         <h1 class="cabecalho titulo-receita">Receitas</h1>
-        <p class="resultado paragrafo-lg">Resultados encontrados: {{ receitas.length }}</p>
-        <p class=" paragrafo-lg descricao">Veja as opções de receitas que encontramos com os ingredientes que você tem
+        <p class="resultado paragrafo-lg">Resultados encontrados: {{ receitasEncontradas.length }}</p>
+        <p v-if="receitasEncontradas.length" class=" paragrafo-lg descricao">Veja as opções de receitas que encontramos
+            com os ingredientes que você tem
             por aí!</p>
-        <ul class="receita">
-            <li v-for="receita in receitas" :key="receita.nome">
+        <p v-else class=" paragrafo-lg descricao">Ops, não encontramos resultados para sua combinação. Vamos tentar de
+            novo?</p>
+            
+        <ul class="receita" v-if="receitasEncontradas.length">
+            <li v-for="receita in receitasEncontradas" :key="receita.nome">
                 <CardReceita :receitas="receita" />
             </li>
         </ul>
+        <img v-else src="../assets/imagens/sem-receitas.png" />
+       
+        <BotaoPrincipal texto="Editar lista" @click="$emit('editarReceita')" />
+     
     </section>
+
+
 </template>
 <style scoped>
 .mostrar-receita {
@@ -62,5 +91,6 @@ export default {
     justify-content: center;
     gap: 1.5rem;
     flex-wrap: wrap;
+    width: 1200px;
 }
 </style>

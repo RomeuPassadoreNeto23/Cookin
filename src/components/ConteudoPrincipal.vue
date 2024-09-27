@@ -23,7 +23,6 @@ export default {
 
         },
         removerIgrediente(incrediente: string) {
-            console.log("ingrediente", incrediente)
             this.ingredientes = this.ingredientes.filter(ingredientes => incrediente != ingredientes)
 
 
@@ -39,15 +38,19 @@ export default {
 
 </script>
 <template>
-
+  
+ 
     <main class="conteudo-principal">
         <SuaLista :ingredientes="ingredientes" />
+        <KeepAlive>
         <SelecionarIngredientes v-if="conteudo === 'SelecionarIngredientes'"
-            @adicionar-ingrediente="adicionarIngrediente"
+            @adicionar-ingrediente="adicionarIngrediente"SelecionarIngredientes
             @remover-ingrediente="removerIgrediente"
             @buscar-receitas="nevegar('MostrarReceitas')" />
-        <MostrarRrceitas v-else=" conteudo ===  'MostrarReceitas'" />
-
+        <MostrarRrceitas :ingrediente="ingredientes" v-else="conteudo ===  'MostrarReceitas'" 
+         @editar-receita="nevegar('SelecionarIngredientes')"/>
+        </KeepAlive>
+        
     </main>
 
 </template>
