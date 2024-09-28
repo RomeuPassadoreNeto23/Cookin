@@ -44,7 +44,7 @@ export default {
         <SuaLista :ingredientes="ingredientes" />
         <KeepAlive>
         <SelecionarIngredientes v-if="conteudo === 'SelecionarIngredientes'"
-            @adicionar-ingrediente="adicionarIngrediente"SelecionarIngredientes
+            @adicionar-ingrediente="adicionarIngrediente"
             @remover-ingrediente="removerIgrediente"
             @buscar-receitas="nevegar('MostrarReceitas')" />
         <MostrarRrceitas :ingrediente="ingredientes" v-else="conteudo ===  'MostrarReceitas'" 

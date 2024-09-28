@@ -5,7 +5,7 @@ import type IReceiras from '@/interfaces/IReceitas';
 import CardReceita from './CardReceita.vue';
 import BotaoPrincipal from './BotaoPrincipal.vue';
 import { itensDeLista1EstaoEmLista2 } from '@/operacoes/listas';
-import { uptime } from 'process';
+
 export default {
     props: {
         ingrediente: { type: Array as PropType<string[]>, required: true }
