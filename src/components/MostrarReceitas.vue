@@ -6,28 +6,31 @@ import CardReceita from './CardReceita.vue';
 import BotaoPrincipal from './BotaoPrincipal.vue';
 import { itensDeLista1EstaoEmLista2 } from '@/operacoes/listas';
 
+
+
 export default {
     props: {
         ingrediente: { type: Array as PropType<string[]>, required: true }
     },
     data() {
         return {
-            receitas: [] as IReceiras[],
+            receitasEncontradas : [] as IReceiras[],
 
         };
     },
+    
     watch: {
         ingrediente: {
             async handler(novaListaIngredientes) {
                 const receitas = await obterReceitas();
-                this.receitas = receitas.filter((receita) => {
+                this.receitasEncontradas = receitas.filter((receita) => {
                     const possoFazerReceita = itensDeLista1EstaoEmLista2(receita.ingredientes,
                         novaListaIngredientes);
                     return possoFazerReceita;
                 });
             },
             immediate: true
-        }
+        }, 
     },
 
     components: { CardReceita, BotaoPrincipal },
@@ -41,15 +44,15 @@ export default {
     <section class="mostrar-receita">
 
         <h1 class="cabecalho titulo-receita">Receitas</h1>
-        <p class="resultado paragrafo-lg">Resultados encontrados: {{ receitas.length }}</p>
-        <p v-if="receitas.length" class=" paragrafo-lg descricao">Veja as opções de receitas que encontramos
+        <p class="resultado paragrafo-lg">Resultados encontrados: {{ receitasEncontradas.length }}</p>
+        <p v-if="receitasEncontradas.length" class=" paragrafo-lg descricao">Veja as opções de receitas que encontramos
             com os ingredientes que você tem
             por aí!</p>
         <p v-else class=" paragrafo-lg descricao">Ops, não encontramos resultados para sua combinação. Vamos tentar de
             novo?</p>
 
-        <ul class="receita" v-if="receitas.length">
-            <li v-for="receita in receitas" :key="receita.nome">
+        <ul class="receita" v-if="receitasEncontradas.length">
+            <li v-for="receita in receitasEncontradas" :key="receita.nome">
                 <CardReceita :receitas="receita" />
             </li>
         </ul>

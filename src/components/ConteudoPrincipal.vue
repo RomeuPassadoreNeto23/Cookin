@@ -42,7 +42,7 @@ export default {
  
     <main class="conteudo-principal">
         <SuaLista :ingredientes="ingredientes" />
-        <KeepAlive>
+        <KeepAlive>    
         <SelecionarIngredientes v-if="conteudo === 'SelecionarIngredientes'"
             @adicionar-ingrediente="adicionarIngrediente"
             @remover-ingrediente="removerIgrediente"
